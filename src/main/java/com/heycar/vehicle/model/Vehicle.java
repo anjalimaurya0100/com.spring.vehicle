@@ -5,6 +5,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.Objects;
 
 
@@ -24,9 +26,12 @@ public class Vehicle {
     @Column(name = "model", nullable = false)
     private String model;
 
+    @NotNull
+    @Positive
     @Column(name = "kw", nullable = false)
     private Integer kw;
 
+    @NotNull
     @Range(min = 1999, max = 2099)
     @Column(name = "year", nullable = false)
     private Integer year;
@@ -35,6 +40,8 @@ public class Vehicle {
     @Column(name = "color", nullable = false)
     private String color;
 
+    @NotNull
+    @Positive
     @Column(name = "price", nullable = false)
     private Integer price;
 

@@ -33,7 +33,7 @@ public class VehicleController {
     }
 
     @GetMapping("/vehicles/{code}")
-    public ResponseEntity<Vehicle> getVehicle(@PathVariable(value = "code") String code) throws ResourceNotFoundException {
+    public ResponseEntity<Vehicle> getVehicleByCode(@PathVariable(value = "code") String code) throws ResourceNotFoundException {
         Optional<Vehicle> vehicle = this.vehicleRepository.findById(code);
         if (!vehicle.isPresent()) {
             throw new ResourceNotFoundException("vehicle not found for code " + code);
