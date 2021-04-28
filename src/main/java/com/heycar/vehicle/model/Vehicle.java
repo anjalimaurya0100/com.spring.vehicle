@@ -1,35 +1,56 @@
 package com.heycar.vehicle.model;
 
 import org.hibernate.validator.constraints.Range;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+import java.util.Objects;
 
 
 @Entity
+@Table(name = "vehicles")
+@EntityListeners(AuditingEntityListener.class)
 public class Vehicle {
     @Id
-    @NotEmpty
-    @NotBlank(message = "code is required")
+    @NotBlank
     private String code;
 
-    @NotBlank(message = "make is required")
+    @NotBlank
+    @Column(name = "make", nullable = false)
     private String make;
 
-    @NotBlank(message = "model is required")
+    @NotBlank
+    @Column(name = "model", nullable = false)
     private String model;
 
+    @Column(name = "kw", nullable = false)
     private Integer kw;
 
     @Range(min = 1999, max = 2099)
+    @Column(name = "year", nullable = false)
     private Integer year;
 
-    @NotBlank(message = "color is required")
+    @NotBlank
+    @Column(name = "color", nullable = false)
     private String color;
 
+    @Column(name = "price", nullable = false)
     private Integer price;
+
+    public Vehicle() {
+
+    }
+
+    public Vehicle(@NotBlank String code, @NotBlank String make, @NotBlank String model, Integer kw, @Range(min = 1999, max = 2099) Integer year, @NotBlank String color, Integer price) {
+        this.code = code;
+        this.make = make;
+        this.model = model;
+        this.kw = kw;
+        this.year = year;
+        this.color = color;
+        this.price = price;
+    }
 
     public String getCode() {
         return code;
@@ -85,5 +106,37 @@ public class Vehicle {
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vehicle vehicle = (Vehicle) o;
+        return code.equals(vehicle.code) &&
+                make.equals(vehicle.make) &&
+                model.equals(vehicle.model) &&
+                kw.equals(vehicle.kw) &&
+                year.equals(vehicle.year) &&
+                color.equals(vehicle.color) &&
+                price.equals(vehicle.price);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code, make, model, kw, year, color, price);
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "code='" + code + '\'' +
+                ", make='" + make + '\'' +
+                ", model='" + model + '\'' +
+                ", kw=" + kw +
+                ", year=" + year +
+                ", color='" + color + '\'' +
+                ", price=" + price +
+                '}';
     }
 }
