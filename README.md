@@ -16,7 +16,7 @@ This project consists of API's on Vehicle Entity:
 - Spring Data JPA
 - Spring Validation
 - H2
-- JUnit
+- JUnit`
 
 
 #### Command to run unit tests - `./gradlew test`
